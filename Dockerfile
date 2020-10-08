@@ -20,12 +20,12 @@ RUN cd /home \
     && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh http://download.bt.cn/install/install_6.0.sh \
     && echo y | bash install.sh \
-    && python /set_default.py \
+    && python3 /set_default.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
     && yum clean all
 
 WORKDIR /www/wwwroot
 CMD /entrypoint.sh
-EXPOSE 8888 888 21 20 443 80
+EXPOSE 8888 888 22 21 20 443 80
 
 HEALTHCHECK --interval=5s --timeout=3s CMD curl -fs http://localhost:8888/ && curl -fs http://localhost/ || exit 1 
