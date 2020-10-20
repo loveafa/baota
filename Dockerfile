@@ -16,12 +16,13 @@ RUN mkdir -p /www/letsencrypt \
 #更新系统 安装依赖 安装宝塔面板
 RUN cd /home \
     && yum -y update \
-    && yum -y install glibc-langpack-en wget openssh-server oniguruma libsodium \
+    && yum -y install glibc-langpack-en wget openssh-server \
     && echo 'Port 63322' > /etc/ssh/sshd_config \
     && wget -O install.sh http://download.bt.cn/install/install_6.0.sh \
     && echo y | bash install.sh \
     && btpython /set_default.py \
     && echo '["linuxsys", "webssh"]' > /www/server/panel/config/index.json \
+    && yum -y install oniguruma libsodium \
     && yum clean all
 
 WORKDIR /www/wwwroot
